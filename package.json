@@ -1,0 +1,25 @@
+{
+  "name": "browser-http-request",
+  "version": "1.0.1",
+  "description": "enclose browser XMLHttpRequest for callback function",
+  "main": "browser-http-request.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "browser",
+    "http",
+    "request",
+    "callback"
+  ],
+  "author": "fwg",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adf0001/browser-http-request.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adf0001/browser-http-request/issues"
+  },
+  "homepage": "https://github.com/adf0001/browser-http-request#readme"
+}
