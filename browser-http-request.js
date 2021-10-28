@@ -2,6 +2,20 @@
 // browser-http-request @ npm
 // enclose browser XMLHttpRequest for callback function
 
+//parse headers string tool
+var parseHeaders = function (headerText) {
+	if (typeof headerText !== "string") return headerText;
+
+	var headers = {}, i;
+	headerText.trim().split(/[\r\n]\s*/).map(
+		function (v) {
+			i = v.indexOf(":");
+			if (i > 0) headers[v.slice(0, i).trim()] = v.slice(i + 1).trim();
+		}
+	);
+	return headers;
+}
+
 // methodOrOptions: string "POST"/"GET"/..., or user-defined options { method, headers:{}, timeout }
 // callback: function( error:{ error, data.* }, data:{ responseText, statusCode, statusMessage, headers, userData } )
 var requestText = function (url, methodOrOptions, postData, headers, callback, userData) {
@@ -34,11 +48,14 @@ var requestText = function (url, methodOrOptions, postData, headers, callback, u
 		if (xq.readyState === 4 || (xq.readyState === 0 && lastReadyState)) {	//DONE, or UNSENT by abort
 			if (!callback) return;
 
+			var headerText = xq.getAllResponseHeaders();
+
 			var resData = {
 				responseText: xq.responseText,
 				statusCode: xq.status,
 				statusMessage: xq.statusText,
-				headers: xq.getAllResponseHeaders(),
+				headerText: headerText,
+				headers: parseHeaders(headerText),
 				userData: userData,
 			};
 
@@ -75,20 +92,6 @@ var requestJson = function (url, methodOrOptions, postData, headers, callback, u
 
 		if (callback) callback(error, data);
 	}, userData);
-}
-
-//parse headers string tool
-var parseHeaders = function (headers) {
-	if (typeof headers !== "string") return headers;
-
-	var headerMap = {}, i;
-	headers.trim().split(/[\r\n]\s*/).map(
-		function (v) {
-			i = v.indexOf(":");
-			if (i > 0) headerMap[v.slice(0, i).trim()] = v.slice(i + 1).trim();
-		}
-	);
-	return headerMap;
 }
 
 //module

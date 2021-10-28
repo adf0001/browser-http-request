@@ -18,8 +18,6 @@ requestText = function (url, methodOrOptions, postData, headers, callback, userD
 browser_http_request('http://url', 'GET', '', null,
 	function (error, data) {
 		console.log(error, data);
-		if (data && data.headers)
-			console.log(browser_http_request.parseHeaders(data.headers));	//.parseHeaders() tool
 	}
 );
 
@@ -30,8 +28,6 @@ requestJson = function (url, methodOrOptions, postData, headers, callback, userD
 browser_http_request.requestJson('http://url/json', 'GET', '', null,
 	function (error, data) {
 		console.log(error, data);
-		if (data && data.headers)
-			console.log(browser_http_request.parseHeaders(data.headers));	//.parseHeaders() tool
 	}
 );
 

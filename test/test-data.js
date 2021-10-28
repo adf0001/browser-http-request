@@ -23,6 +23,16 @@ module.exports = {
 			}
 		);
 	},
+	".parseHeaders()": function (done) {
+		var s = "content-length: 69\r\ncontent-type: text/plain; charset=utf-8\r\n";
+		var headers = browser_http_request.parseHeaders(s);
+		var expect = {
+			"content-length": "69",
+			"content-type": "text/plain; charset=utf-8",
+		};
+
+		done(!(JSON.stringify(headers) === JSON.stringify(expect)));
+	},
 };
 
 // for html page
