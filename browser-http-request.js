@@ -28,7 +28,7 @@ var requestText = function (url, methodOrOptions, postData, headers, callback, u
 			{ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
 	}
 
-	//timer & cleanup
+	//cleanup
 	var tmid;
 	var cleanup = function () {
 		if (tmid) { clearTimeout(tmid); tmid = null; };
