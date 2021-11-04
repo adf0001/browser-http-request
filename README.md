@@ -21,11 +21,22 @@ browser_http_request('http://url', 'GET', '', null,
 	}
 );
 
-/*
-requestJson = function (url, methodOrOptions, postData, headers, callback, userData)
-	callback: function( error:{ error, data.* }, data:{ responseJson, data.* from requestText() } )
-*/
-browser_http_request.requestJson('http://url/json', 'GET', '', null,
+//	callback: function( error:{ error, data.* }, data:{ responseJson, data.* from requestText() } )
+browser_http_request.requestJson('http://url/json', 'GET', '', null,		//add responseJson to data
+	function (error, data) {
+		console.log(error, data);
+	}
+);
+
+//	callback: function( error:error-text, data:responseText )
+browser_http_request.text('http://url', 'GET', '', null,		//wrap just text as data
+	function (error, data) {
+		console.log(error, data);
+	}
+);
+
+//	callback: function( error:error-text, data:responseJson )
+browser_http_request.json('http://url/json', 'GET', '', null,		//wrap just json as data
 	function (error, data) {
 		console.log(error, data);
 	}

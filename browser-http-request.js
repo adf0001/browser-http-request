@@ -88,9 +88,32 @@ var requestJson = function (url, methodOrOptions, postData, headers, callback, u
 		if (error) { if (callback) callback(error, data); return; }
 
 		try { data.responseJson = JSON.parse(data.responseText); }
-		catch (ex) { console.log(ex); data.responseJson = null; }
+		catch (ex) {
+			console.log(ex);
+			data.error = "JSON parse error, " + ex.message;
+			if (callback) callback(data);
+			return;
+		}
 
 		if (callback) callback(error, data);
+	}, userData);
+}
+
+// callback: function( error:error-text, data:responseText )
+var _text = function (url, methodOrOptions, postData, headers, callback, userData) {
+	requestText(url, methodOrOptions, postData, headers, function (error, data) {
+		if (error) { if (callback) callback(error.error || ("" + error), data); return; }
+
+		if (callback) callback(error, data.responseText);
+	}, userData);
+}
+
+// callback: function( error:error-text, data:responseJson )
+var _json = function (url, methodOrOptions, postData, headers, callback, userData) {
+	requestJson(url, methodOrOptions, postData, headers, function (error, data) {
+		if (error) { if (callback) callback(error.error || ("" + error), data); return; }
+
+		if (callback) callback(error, data.responseJson);
 	}, userData);
 }
 
@@ -100,4 +123,7 @@ module.exports = exports = requestText;
 
 exports.requestText = requestText;
 exports.requestJson = requestJson;
+exports.text = _text;
+exports.json = _json;
+
 exports.parseHeaders = parseHeaders;

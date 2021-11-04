@@ -23,6 +23,22 @@ module.exports = {
 			}
 		);
 	},
+	".text()": function (done) {
+		browser_http_request.text('http://myip.ipip.net', 'GET', '', null,
+			function (error, data) {
+				console.log(error, data);
+				done(error && !error.error);
+			}
+		);
+	},
+	".json()": function (done) {
+		browser_http_request.json('http://myip.ipip.net/json', 'GET', '', null,
+			function (error, data) {
+				console.log(error, data);
+				done(error && !error.error);
+			}
+		);
+	},
 	".parseHeaders()": function (done) {
 		var s = "content-length: 69\r\ncontent-type: text/plain; charset=utf-8\r\n";
 		var headers = browser_http_request.parseHeaders(s);
