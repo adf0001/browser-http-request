@@ -9,7 +9,7 @@ module.exports = {
 				console.log(error, data);
 				if (data && data.headers)
 					console.log(browser_http_request.parseHeaders(data.headers));	//.parseHeaders() tool
-				done(error && !error.error);
+				done(error && !error.responseText);
 			}
 		);
 	},
@@ -19,7 +19,7 @@ module.exports = {
 				console.log(error, data);
 				if (data && data.headers)
 					console.log(browser_http_request.parseHeaders(data.headers));	//.parseHeaders() tool
-				done(error && !error.error);
+				done(error && !error.responseText);
 			}
 		);
 	},
@@ -27,7 +27,7 @@ module.exports = {
 		browser_http_request.text('http://myip.ipip.net', 'GET', '', null,
 			function (error, data) {
 				console.log(error, data);
-				done(error && !error.error);
+				done(error && !error.responseText);
 			}
 		);
 	},
@@ -35,7 +35,7 @@ module.exports = {
 		browser_http_request.json('http://myip.ipip.net/json', 'GET', '', null,
 			function (error, data) {
 				console.log(error, data);
-				done(error && !error.error);
+				done(error && !error.responseText);
 			}
 		);
 	},
