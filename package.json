@@ -1,6 +1,6 @@
 {
   "name": "browser-http-request",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "enclose browser XMLHttpRequest for callback function",
   "main": "browser-http-request.js",
   "scripts": {

@@ -18,6 +18,7 @@ var parseHeaders = function (headerText) {
 
 // methodOrOptions: string "POST"/"GET"/..., or user-defined options { method, headers:{}, timeout }
 // callback: function( Error:{ data.* }, data:{ responseText, statusCode, statusMessage, headers, userData } )
+// return the XMLHttpRequest object
 var requestText = function (url, methodOrOptions, postData, headers, callback, userData) {
 	//options
 	var options = (typeof methodOrOptions === "string") ? { method: methodOrOptions } : (methodOrOptions || {});
@@ -86,12 +87,14 @@ var requestText = function (url, methodOrOptions, postData, headers, callback, u
 		}, options.timeout)
 	}
 
-	return xq.send(postData);
+	xq.send(postData);
+
+	return xq;
 }
 
 // callback: function( Error:{ data.* }, data:{ responseJson, data.* from requestText() } )
 var requestJson = function (url, methodOrOptions, postData, headers, callback, userData) {
-	requestText(url, methodOrOptions, postData, headers, function (error, data) {
+	return requestText(url, methodOrOptions, postData, headers, function (error, data) {
 		if (!error) {
 			try { data.responseJson = JSON.parse(data.responseText); }
 			catch (ex) {
@@ -106,14 +109,14 @@ var requestJson = function (url, methodOrOptions, postData, headers, callback, u
 
 // callback: function( error, data:responseText )
 var _text = function (url, methodOrOptions, postData, headers, callback, userData) {
-	requestText(url, methodOrOptions, postData, headers, function (error, data) {
+	return requestText(url, methodOrOptions, postData, headers, function (error, data) {
 		callback && callback(error, error ? data : data.responseText);
 	}, userData);
 }
 
 // callback: function( error, data:responseJson )
 var _json = function (url, methodOrOptions, postData, headers, callback, userData) {
-	requestJson(url, methodOrOptions, postData, headers, function (error, data) {
+	return requestJson(url, methodOrOptions, postData, headers, function (error, data) {
 		callback && callback(error, error ? data : data.responseJson);
 	}, userData);
 }
