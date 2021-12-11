@@ -64,7 +64,7 @@ var requestText = function (url, methodOrOptions, postData, headers, callback, u
 				}
 				else {
 					var err = Error(xq.status + " " + xq.statusText +
-						(xq.responseText ? ("," + xq.responseText.slice(0, 255)) : ""));
+						(xq.responseText ? (", " + xq.responseText.slice(0, 255)) : ""));
 					for (var i in resData) err[i] = resData[i];
 					callback(err);
 				}
